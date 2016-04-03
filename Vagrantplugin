@@ -1,0 +1,3 @@
+# Required for ansible provisioning
+vagrant-hostsupdater
+vagrant-triggers

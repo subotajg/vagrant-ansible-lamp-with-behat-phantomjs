@@ -1,0 +1,26 @@
+---
+- name: Fix Apache  "threaded MPM" issue
+  sudo: yes
+  apache2_module: state=absent name=mpm_event
+  apache2_module: state=present name=mpm_prefork
+
+- name: Remove the 000-default apache config
+  file: path=/etc/apache2/sites-enabled/000-default state=absent
+
+- name: Install git
+  apt: pkg=git state=present
+
+- name: Install vim
+  apt: name=vim state=present
+
+- name: Install cURL
+  apt: pkg=curl state=present
+
+- name: install composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: Composer installing
+  sudo: no
+  composer: command=install working_dir=/var/www/vagrant-ansible-lamp-with-behat-phantomjs

@@ -1,0 +1,8 @@
+# from galaxy
+- src: geerlingguy.apache
+- src: geerlingguy.php
+- src: lxhunter.apt
+- src: geerlingguy.java
+- src: arknoll.selenium
+- src: elao.phantomjs
+  version: 2.0

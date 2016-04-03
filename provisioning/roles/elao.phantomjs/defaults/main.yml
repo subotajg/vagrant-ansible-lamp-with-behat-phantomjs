@@ -1,0 +1,5 @@
+---
+
+# Config
+elao_phantomjs_config_template: ~
+elao_phantomjs_config:          []

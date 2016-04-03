@@ -1,0 +1,29 @@
+---
+# Install software
+- name: Install MySQL server
+  apt: pkg=mysql-server state=present
+- name: Install python-mysql
+  apt: pkg=python-mysqldb state=present
+
+# Fetch databases
+#- name: Download database dumps from somewhere
+#  get_url:
+#    url: "{{ item.url }}"
+#    dest: "{{ item.dest }}"
+#    mode: 660
+#  with_items: "{{ database_dumps }}"
+
+# Ensure databases
+#- name: Ensure databases
+#  mysql_db:
+#    name: "{{ item.name }}"
+#    state: present
+#  with_items: "{{ database_dumps }}"
+
+# Import databases
+#- name: Import databases
+#  mysql_db:
+#    name: "{{ item.name }}"
+#    state: import
+#    target: "{{ item.dest }}"
+#  with_items: "{{ database_dumps }}"

@@ -1,0 +1,10 @@
+---
+
+- name: services > Services
+  sudo: yes
+#  service:
+#    name:  "{{ item }}"
+#    state: started
+#  with_items:
+#    - phantomjs
+  shell: phantomjs  --ignore-ssl-errors=true --webdriver=8643 &

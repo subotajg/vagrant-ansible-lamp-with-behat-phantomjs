@@ -1,0 +1,13 @@
+---
+
+- name: install > Packages
+# doesn't work for debian 8
+#  apt:
+#    name:  "{{ item }}"
+#    state: present
+#  with_items:
+#    - phantomjs
+  copy: src=phantomjs dest=/usr/bin/phantomjs
+
+- name: Change phantomjs permissions and ownership
+  file: path=/usr/bin/phantomjs owner=root group=root mode=0755

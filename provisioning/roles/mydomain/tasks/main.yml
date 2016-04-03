@@ -1,0 +1,4 @@
+---
+# Run all the tasks
+- include: environment.yml
+- include: database.yml

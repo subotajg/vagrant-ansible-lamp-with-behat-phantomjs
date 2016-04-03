@@ -1,0 +1,38 @@
+---
+- name: Update caches
+  apt:
+    update_cache: yes
+    cache_valid_time: "{{ apt_cache_valid_time | default(3600) }}"
+
+- name: Install ansible required apt packages
+  apt:
+    pkg: "python-apt"
+    state: present
+
+- name: Set apt parameters in 10periodic
+  lineinfile:
+    dest: "/etc/apt/apt.conf.d/{{ item.file }}"
+    state: present
+    regexp: "^{{ item.key }}"
+    line: "{{ item.key }} \"{{ item.value }}\";"
+    insertafter: EOF
+    create: yes
+  with_items: apt_config
+  when: apt_config is defined
+
+- name: Install additional user specified packages
+  apt:
+    pkg: "{{item}}"
+    state: present
+  with_items:
+    apt_install_packages
+  when: apt_install_packages is defined
+
+- name: Purge packages
+  apt:
+    pkg: "{{item}}"
+    state: absent
+    purge: yes
+  with_items:
+    apt_purge_packages
+  when: apt_purge_packages is defined

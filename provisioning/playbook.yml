@@ -1,0 +1,44 @@
+---
+- name: Install mydomain dependncies
+  hosts: all
+  sudo: yes
+  roles:
+    - role: geerlingguy.apache
+      apache_vhosts:
+        - {
+          servername: "mydomain.local",
+          documentroot: "/var/www",
+          extra_parameters: "<Directory /var/www/vagrant-ansible-lamp-with-behat-phantomjs>\nAllowOverride All\nOptions -Indexes +FollowSymLinks\nOrder allow,deny\nAllow from all\n</Directory>\n",
+          }
+      apache_vhosts_ssl:
+          - {
+            servername: "mydomain.local",
+            documentroot: "/var/www",
+            extra_parameters: "<Directory /var/www/vagrant-ansible-lamp-with-behat-phantomjs>\nAllowOverride All\nOptions -Indexes +FollowSymLinks\nOrder allow,deny\nAllow from all\n</Directory>\n",
+            certificate_file: "/var/www/vagrant-ansible-lamp-with-behat-phantomjs/config/development.crt",
+            certificate_key_file: "/var/www/vagrant-ansible-lamp-with-behat-phantomjs/config/development.key",
+            }
+      apache_ssl_protocol: "All -SSLv2 -SSLv3"
+      apache_ssl_cipher_suite: "ALL"
+
+    - role: geerlingguy.php
+      php_short_open_tag: true
+      php_date_timezone: UTC
+      php_packages:
+        - php5
+        - libapache2-mod-php5
+        - php5-mcrypt
+        - php5-cli
+        - php5-common
+        - php5-curl
+        - php5-dev
+        - php5-gd
+        - php-pear
+        - php5-mysql
+        - libpcre3-dev
+
+    - role: geerlingguy.java
+    - role: arknoll.selenium
+      selenium_install_firefox: no
+    - role: elao.phantomjs
+    - role: mydomain

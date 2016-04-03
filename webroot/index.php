@@ -1,0 +1,4 @@
+<?php
+
+echo 'some text';
+

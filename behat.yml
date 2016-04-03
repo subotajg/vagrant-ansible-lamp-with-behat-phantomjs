@@ -1,0 +1,17 @@
+default:
+  extensions:
+    Behat\MinkExtension:
+      base_url: "https://mydomain.local"
+      sessions:
+        default_session:
+           goutte:
+            guzzle_parameters:
+              verify: false
+        javascript_session:
+          selenium2:
+            wd_host: "http://localhost:8643/wd/hub"
+    SensioLabs\Behat\PageObjectExtension: ~
+  suites:
+    default:
+      contexts:
+        - FeatureContext
